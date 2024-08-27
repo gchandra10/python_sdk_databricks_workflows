@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "manage databricks jobs"
+name = "Manage Databricks Workflows"
 version = "0.1.0"
 description = ""
 authors = ["Ganesh Chandrasekaran"]
