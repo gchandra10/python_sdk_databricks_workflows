@@ -66,37 +66,37 @@ class DBXWorkspaceJobs:
                 ## if job_name in ['','','']
                 ## if job_name.startswith("Clone") and job_owner == "user@company.com":
 
-                if job_name.startswith("gc-test"):
-                    logging.info(
-                        f"Changing DBR for job ID:{job_id}, Name: {job_name}, Owner: {job_owner}"
+                #if job_name.startswith("gc-test"):
+                logging.info(
+                    f"Changing DBR for job ID:{job_id}, Name: {job_name}, Owner: {job_owner}"
+                )
+                print(
+                    f"Changing DBR for job ID:{job_id}, Name: {job_name}, Owner: {job_owner}"
+                )
+
+                ## Read JOB Details
+                job_details = self.wsclient.jobs.get(job_id)
+
+                ## Pretty Print the data
+                # pprint.pprint(job_details)
+
+                for jc in job_details.settings.job_clusters:
+                    nc = jc.new_cluster
+
+                    ## Print the value before change
+                    # pprint.pprint(jc)
+
+                    nc.spark_version = dbr_version
+                    nc.data_security_mode = DataSecurityMode.SINGLE_USER
+
+                    ## Print the value after change
+                    # pprint.pprint(jc)
+
+                    ## Update the Databricks JOB
+                    self.wsclient.jobs.update(
+                        job_id=job_id,
+                        new_settings=jobs.JobSettings(job_clusters=[jc]),
                     )
-                    print(
-                        f"Changing DBR for job ID:{job_id}, Name: {job_name}, Owner: {job_owner}"
-                    )
-
-                    ## Read JOB Details
-                    job_details = self.wsclient.jobs.get(job_id)
-
-                    ## Pretty Print the data
-                    # pprint.pprint(job_details)
-
-                    for jc in job_details.settings.job_clusters:
-                        nc = jc.new_cluster
-
-                        ## Print the value before change
-                        # pprint.pprint(jc)
-
-                        nc.spark_version = dbr_version
-                        nc.data_security_mode = DataSecurityMode.SINGLE_USER
-
-                        ## Print the value after change
-                        # pprint.pprint(jc)
-
-                        ## Update the Databricks JOB
-                        self.wsclient.jobs.update(
-                            job_id=job_id,
-                            new_settings=jobs.JobSettings(job_clusters=[jc]),
-                        )
 
         except Exception as e:
             logging.error(f"Failed to change DBR for jobs: {str(e)}")
@@ -123,40 +123,40 @@ class DBXWorkspaceJobs:
                 ## if job_name in ['','','']
                 ## if job_name.startswith("Clone") and job_owner == "user@company.com":
 
-                if job_name.startswith("gc-test"):
-                    logging.info(
-                        f"Processing job ID:{job_id}, Name: {job_name}, Owner: {job_owner}"
+                #if job_name.startswith("gc-test"):
+                logging.info(
+                    f"Processing job ID:{job_id}, Name: {job_name}, Owner: {job_owner}"
+                )
+                print(
+                    f"Processing job ID:{job_id}, Name: {job_name}, Owner: {job_owner}"
+                )
+
+                ## Read JOB Details
+                job_details = self.wsclient.jobs.get(job_id)
+
+                ## Pretty Print the data
+                # pprint.pprint(job_details)
+
+                for jc in job_details.settings.job_clusters:
+                    nc = jc.new_cluster
+
+                    ## Print the value before change
+                    # pprint.pprint(jc)
+
+                    ## If spark configuration is missing in the cluster then initialize else update
+                    if nc.spark_conf is None:
+                        nc.spark_conf = spark_config_dict
+                    else:
+                        nc.spark_conf.update(spark_config_dict)
+
+                    ## Print the value after change
+                    # pprint.pprint(jc)
+
+                    ## Update the Databricks JOB
+                    self.wsclient.jobs.update(
+                        job_id=job_id,
+                        new_settings=jobs.JobSettings(job_clusters=[jc]),
                     )
-                    print(
-                        f"Processing job ID:{job_id}, Name: {job_name}, Owner: {job_owner}"
-                    )
-
-                    ## Read JOB Details
-                    job_details = self.wsclient.jobs.get(job_id)
-
-                    ## Pretty Print the data
-                    # pprint.pprint(job_details)
-
-                    for jc in job_details.settings.job_clusters:
-                        nc = jc.new_cluster
-
-                        ## Print the value before change
-                        # pprint.pprint(jc)
-
-                        ## If spark configuration is missing in the cluster then initialize else update
-                        if nc.spark_conf is None:
-                            nc.spark_conf = spark_config_dict
-                        else:
-                            nc.spark_conf.update(spark_config_dict)
-
-                        ## Print the value after change
-                        # pprint.pprint(jc)
-
-                        ## Update the Databricks JOB
-                        self.wsclient.jobs.update(
-                            job_id=job_id,
-                            new_settings=jobs.JobSettings(job_clusters=[jc]),
-                        )
 
         except Exception as e:
             logging.error(f"Failed to change default catalog for jobs: {str(e)}")
@@ -175,26 +175,26 @@ class DBXWorkspaceJobs:
                 job_owner = job.creator_user_name
 
                 # Change the condition based on your requirement
-                if job_name.startswith("gc-test"):
-                    logging.info(
-                        f"Saving Config for job ID:{job_id}, Name: {job_name}, Owner: {job_owner}"
-                    )
-                    print(
-                        f"Saving Config for job ID:{job_id}, Name: {job_name}, Owner: {job_owner}"
-                    )
+                #if job_name.startswith("gc-test"):
+                logging.info(
+                    f"Saving Config for job ID:{job_id}, Name: {job_name}, Owner: {job_owner}"
+                )
+                print(
+                    f"Saving Config for job ID:{job_id}, Name: {job_name}, Owner: {job_owner}"
+                )
 
-                    directory = "./jobs_json"
+                directory = "./jobs_json"
 
-                    # Check if the directory exists, if not, create it
-                    if not os.path.exists(directory):
-                        os.makedirs(directory)
+                # Check if the directory exists, if not, create it
+                if not os.path.exists(directory):
+                    os.makedirs(directory)
 
-                    # Define the file path
-                    file_path = os.path.join(directory, f"{job_name}.json")
+                # Define the file path
+                file_path = os.path.join(directory, f"{job_name}.json")
 
-                    job_details_json_data = self.wsclient.jobs.get(job_id).as_dict()
-                    with open(file_path, "w") as file:
-                        json.dump(job_details_json_data, file, indent=4)
+                job_details_json_data = self.wsclient.jobs.get(job_id).as_dict()
+                with open(file_path, "w") as file:
+                    json.dump(job_details_json_data, file, indent=4)
 
         except Exception as e:
             logging.error(f"Failed to save jobs as JSON: {str(e)}")
@@ -224,7 +224,7 @@ if __name__ == "__main__":
 
     ## Changing the default Catalog to UC catalog
 
-    # spark_config_dict = {"spark.databricks.sql.initial.catalog.name": "gannychan"}
+    # spark_config_dict = {"spark.databricks.sql.initial.catalog.name": "hive_metastore"}
     # obj_ws_jobs.change_default_catalog(spark_config_dict)
 
     # obj_ws_jobs.change_dbr("14.3.x-scala2.12")
