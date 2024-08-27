@@ -1,0 +1,4 @@
+jobs_json/
+.ruff_cache/
+logs/
+poetry.lock

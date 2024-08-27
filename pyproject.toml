@@ -1,0 +1,14 @@
+[tool.poetry]
+name = "manage databricks jobs"
+version = "0.1.0"
+description = ""
+authors = ["Ganesh Chandrasekaran"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+databricks-sdk = "^0.31.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
