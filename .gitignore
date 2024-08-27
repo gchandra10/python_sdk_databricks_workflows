@@ -3,3 +3,4 @@ jobs_json/
 logs/
 poetry.lock
 .code-workspace
+.env

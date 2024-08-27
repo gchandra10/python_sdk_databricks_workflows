@@ -217,14 +217,18 @@ if __name__ == "__main__":
         format="%(asctime)s [%(name)s][%(levelname)s] %(message)s",
     )
 
-    obj_ws_jobs = DBXWorkspaceJobs("demo-east-us2")
+    ## https://docs.databricks.com/en/dev-tools/cli/profiles.html
+    
+    obj_ws_jobs = DBXWorkspaceJobs("databricks-profile-name")
 
     ## Saves all jobs as JSON file
-    obj_ws_jobs.save_jobs_as_json()
+    # obj_ws_jobs.save_jobs_as_json()
 
     ## Changing the default Catalog to UC catalog
 
     # spark_config_dict = {"spark.databricks.sql.initial.catalog.name": "hive_metastore"}
     # obj_ws_jobs.change_default_catalog(spark_config_dict)
 
+    # Change the DBR
+    
     # obj_ws_jobs.change_dbr("14.3.x-scala2.12")
