@@ -22,7 +22,7 @@ https://github.com/databricks/databricks-sdk-py/tree/main/examples
 https://python-poetry.org/docs/
 
 
-## Scripts
+## Notes
 
 ### Export Update Workflows
 
@@ -45,12 +45,6 @@ https://python-poetry.org/docs/
 
 - Uncomment necessary Actions
 
-#### Run
-
-> poetry run python export_update_workflow.py
-
--------
-
 ### Get Databricks Runtime
 
 - Rename **.env_template** to **.env** and replace the values.
@@ -61,4 +55,4 @@ https://python-poetry.org/docs/
 
 #### Run
 
-> poetry run python get_databricks_runtime_versions.
+> poetry run python main.py

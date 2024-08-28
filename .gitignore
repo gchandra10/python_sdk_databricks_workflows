@@ -4,3 +4,4 @@ logs/
 poetry.lock
 .code-workspace
 .env
+archive/
